@@ -18,13 +18,14 @@ void delAll(Node*&);
 int main() {
     Node *head = nullptr;
     int choice;
-    string yes_or_no;
+    string yes_or_no = "Y";
     // create a linked list of size SIZE with random numbers 0-99
     cout << "Which linked list method should we use?" << endl;
     cout << "\t[1] New nodes are added at the head of the linked list" << endl;
     cout << "\t[2] New nodes are added at the tail of the linked list" << endl;
     cout << "\tChoice: ";
     cin >> choice;
+    cin.ignore();
     if (choice == 1) {
         while (yes_or_no != "n" && yes_or_no != "N") {
             addF(head);
@@ -46,6 +47,7 @@ int main() {
 }
 
 void output(Node * hd) {
+    float average;
     if (!hd) {
         cout << "Empty list.\n";
         return;
@@ -55,8 +57,10 @@ void output(Node * hd) {
     cout << "Outputting all reviews: " << endl;
     while (current) {
         cout << "\tReview #" << count++ << ": " << current->rating << ": " << current->comments << endl;
+        average += current->rating;
         current = current->next;
     }
+    cout << "\tAverage: " << average / count << endl;
     cout << endl;
 }
 
@@ -69,8 +73,8 @@ void addF(Node*& head) {
             head = temp;
             cout << "Enter review rating 0-5: ";
             cin >> rating;
-            cout << "Enter review coments: ";
             cin.ignore();
+            cout << "Enter review coments: ";
             getline(cin, comment);
             temp->next = nullptr;
             temp->rating = rating;
